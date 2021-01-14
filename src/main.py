@@ -2,23 +2,23 @@ import logging
 import sys
 import traceback
 from os import environ, getenv
+import os
 
 import discord
 from discord.ext import commands
-from raygun4py import raygunprovider
+#from raygun4py import raygunprovider
 
 logging.basicConfig(level=logging.WARNING)
 
-BOT_TOKEN = environ["BOT_TOKEN"]
-raygun_key = getenv("RAYGUN_KEY", None)
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+#raygun_key = getenv("RAYGUN_KEY", None)
 
 
-def handle_exception(exc_type, exc_value, exc_traceback):
-    cl = raygunprovider.RaygunSender(raygun_key)
-    cl.send_exception(exc_info=(exc_type, exc_value, exc_traceback))
+#def handle_exception(exc_type, exc_value, exc_traceback):
+    #cl = raygunprovider.RaygunSender(raygun_key)
+    #cl.send_exception(exc_info=(exc_type, exc_value, exc_traceback))
 
-
-sys.excepthook = handle_exception
+#sys.excepthook = handle_exception
 
 intents = discord.Intents(messages=True, guilds=True, emojis=True, reactions=True)
 
