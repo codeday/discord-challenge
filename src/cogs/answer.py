@@ -9,7 +9,7 @@ from os import getenv
 # > Example: daft Punk and DAFT PUNK
 # make answers spoilers
 
-class ChallengesCog(commands.Cog, name="Challenges"):
+class AnswerCog(commands.Cog, name="Answer"):
     def __init__(self, bot, user_answer, question_answers):
         self.question_answers = []
         self.user_answer = user_answer
@@ -68,12 +68,12 @@ class ChallengesCog(commands.Cog, name="Challenges"):
     #call badge command, send dm
     #get user id that sent the message
     #add reaction to command that was sent
-    def correct_answer(self):
+    #def correct_answer(self):
+
+ctx.author.send
+
+   # def wrong_answer(self):
 
 
-
-    def wrong_answer(self):
-
-
-# def setup(bot):
-# bot.add_cog(ChallengesCog(bot))
+def setup(bot):
+    bot.add_cog(AnswerCog(bot))
