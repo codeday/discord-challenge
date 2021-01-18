@@ -39,8 +39,6 @@ class ChallengeCog(commands.Cog, name="Challenge"):
 
         embed.set_thumbnail(url="https://f1.codeday.org/logo_heartonly_ff686b.png")  # insert pic
 
-        # embed.add_field(name="`Websites for practicing algorithms and data structures`", inline=False)
-
         embed.add_field(name="Leetcode, one of the most popular practice websites out there.",
                         value='https://leetcode.com/', inline=False)
 
