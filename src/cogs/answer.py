@@ -11,22 +11,21 @@ from os import getenv
 
 class AnswerCog(commands.Cog, name="Answer"):
     def __init__(self, bot, user_answer, question_answers):
-        self.question_answers = []
-        self.user_answer = user_answer
-        self.bot = bot
+        self.question_answers = [] #add here
+        self.user_answer = user_answer #included in call
+        self.bot = bot #check this
         self.challenge_channel = getenv("CHALLENGE_CHANNEL", 790574063071789078)
 
-    # compares answer to real answer, with leniency
+# compares answer to real answer, with leniency
 
     # splits question answers between numbers and strings
-    # ideally done once a week
-    def answer_type(self, question_answers, user_answer):
+    def answer_type(self, bot, question_answers, user_answer):
         try:
             for q in question_answers:
                 check = int(q)
-            self.num_compare(user_answer, question_answers)
+            self.num_compare(user_answer, question_answers) #checks if num
         except ValueError:
-            self.string_compare(self)
+            self.string_compare(self, bot, user_answer, question_answers)
 
     def num_compare(self, user_answer, question_answers):
         difference = 0
@@ -42,14 +41,14 @@ class AnswerCog(commands.Cog, name="Answer"):
 
         for i in question_answers:
             if user_answer == i:
-                print("Exactly correct")  # change to discord way of course :)
+                correct_answer()
             elif difference < 1:  # this value can/should be changed
-                print("Your answer is very close")
+                close_answer()
             else:
-                print("Good try")
+                wrong_answer()
 
     # ensure that capitalization/ spelling mistakes don't stop answers
-    def string_compare(self, user_answer, question_answers):
+    def string_compare(self, bot, user_answer, question_answers):
         answer_found = False
         # lowercases everything-> issue in some questions?
 
@@ -58,22 +57,33 @@ class AnswerCog(commands.Cog, name="Answer"):
             ans.lower()
         while not answer_found:
             if user_answer == [ans for ans in question_answers]:
-                print("Your answer is correct")
+                correct_answer(bot)
             elif user_answer == [ans.strip() for ans in question_answers]:
-                print("Your answer is correct without spaces")  # likely unneccessary
+                close_answer(bot)  # likely unneccessary
             else:
-                print("Your answer is incorrect")
+                wrong_answer(bot)
 
 
-    #call badge command, send dm
-    #get user id that sent the message
-    #add reaction to command that was sent
-    #def correct_answer(self):
+#call badge command, send dm
+#get user id that sent the message
+#add reaction to command that was sent
 
-ctx.author.send
+def correct_answer(bot):
+    user = bot.get_author()
+    await user.send('Your answer was correct!')
+    #send user the amount of badges they have earned
+    #one of you good coders can fill in some majic graph ql here
+    correct_answers = 0
+    await user.send(f'You have answered {correct_answers} questions.')
 
-   # def wrong_answer(self):
+def close_answer(bot):
+    user = bot.get_author()
+    await user.send("Your answer didn\'t perfectly match with the answer we have. Check if your format is off, and if you\'re sure it\'s right, please let us know.")
 
+def wrong_answer(bot):
+    user = bot.get_author()
+    await user.send('Your answer is incorrect!')
+    await user.send('If you need help, ask in #help-desk.')
 
 def setup(bot):
     bot.add_cog(AnswerCog(bot))
