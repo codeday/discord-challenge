@@ -25,7 +25,7 @@ intents = discord.Intents(messages=True, guilds=True, emojis=True, reactions=Tru
 bot = commands.Bot(command_prefix="c~", intents=intents)
 logging.basicConfig(level=logging.INFO)
 
-initial_cogs = ['cogs.challenge', 'cogs.answer']
+initial_cogs = ['cogs.challenge', 'cogs.answer', 'cogs.question_reader']
 
 for cog in initial_cogs:
     # noinspection PyBroadException
