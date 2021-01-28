@@ -2,7 +2,9 @@ import csv
 import discord
 from discord.ext import tasks, commands
 from os import getenv
-def question_send_task():
+
+
+def question_send():
     print("why doesnt this work?")
 
 def read_csv():

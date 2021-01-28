@@ -8,7 +8,7 @@ import discord
 from discord.ext import commands, tasks
 #from raygun4py import raygunprovider
 
-from cogs.questions import read_csv, question_send_tasks
+from cogs.questions import read_csv, question_send
 
 logging.basicConfig(level=logging.WARNING)
 
@@ -51,7 +51,7 @@ async def on_ready():
 @tasks.loop(minutes = 1) #test value
 
 async def question_send_task():
-    question_send_task()
+    question_send()
 
 @tasks.loop(minutes = 1) #task value
 async def read_csv_task():
