@@ -5,9 +5,10 @@ from os import environ, getenv
 import os
 
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 #from raygun4py import raygunprovider
 
+from question_reader import send_challenge, read_csv
 logging.basicConfig(level=logging.WARNING)
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -22,7 +23,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 intents = discord.Intents(messages=True, guilds=True, emojis=True, reactions=True)
 
-bot = commands.Bot(command_prefix="c~", intents=intents)
+bot = commands.Bot(command_prefix="c!", intents=intents)
 logging.basicConfig(level=logging.INFO)
 
 initial_cogs = ['cogs.challenge', 'cogs.answer', 'cogs.question_reader']
@@ -40,7 +41,18 @@ for cog in initial_cogs:
 
 @bot.event
 async def on_ready():
+    question_send_task.start()
+    read_csv_task.start()
+    await bot.change_presence(status = discord.Status.online, activity = discord.Activity(type=discord.ActivityType.watching, name = ("c!answer")))
     print('We have logged in as {0.user}'.format(bot))
 
+#task loop for sending question
+@tasks.loop(minutes = 1) #test value
+async def question_send_task():
+    send_challenge()
 
+@tasks.loop(minutes = 1) #task value
+async def read_csv_task():
+    read_csv()
+    
 bot.run(BOT_TOKEN, bot=True, reconnect=True)

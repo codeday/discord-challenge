@@ -68,7 +68,7 @@ class AnswerCog(commands.Cog, name="Answer"):
 #get user id that sent the message
 #add reaction to command that was sent
 
-def correct_answer(bot):
+async def correct_answer(bot):
     user = bot.get_author()
     await user.send('Your answer was correct!')
     #send user the amount of badges they have earned
@@ -76,11 +76,11 @@ def correct_answer(bot):
     correct_answers = 0
     await user.send(f'You have answered {correct_answers} questions.')
 
-def close_answer(bot):
+async def close_answer(bot):
     user = bot.get_author()
     await user.send("Your answer didn\'t perfectly match with the answer we have. Check if your format is off, and if you\'re sure it\'s right, please let us know.")
 
-def wrong_answer(bot):
+async def wrong_answer(bot):
     user = bot.get_author()
     await user.send('Your answer is incorrect!')
     await user.send('If you need help, ask in #help-desk.')
