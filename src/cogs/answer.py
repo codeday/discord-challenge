@@ -9,10 +9,11 @@ from os import getenv
 # > Example: daft Punk and DAFT PUNK
 # make answers spoilers
 
+
 class AnswerCog(commands.Cog, name="Answer"):
-    def __init__(self, bot, user_answer, question_answers):
-        self.question_answers = [] #add here
-        self.user_answer = user_answer #included in call
+    def __init__(self, bot):
+        self.question_answers = [] #add here, passed as list due to some questions having multiple
+        self.user_answer = "test value" #included in call, ends error
         self.bot = bot #check this
         self.challenge_channel = getenv("CHALLENGE_CHANNEL", 790574063071789078)
 

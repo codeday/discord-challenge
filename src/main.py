@@ -8,7 +8,7 @@ import discord
 from discord.ext import commands, tasks
 #from raygun4py import raygunprovider
 
-from cogs.question_reader import read_csv
+from cogs.questions import read_csv, question_send_tasks
 
 logging.basicConfig(level=logging.WARNING)
 
@@ -27,7 +27,7 @@ intents = discord.Intents(messages=True, guilds=True, emojis=True, reactions=Tru
 bot = commands.Bot(command_prefix="c!", intents=intents)
 logging.basicConfig(level=logging.INFO)
 
-initial_cogs = ['cogs.challenge', 'cogs.answer', 'cogs.question_reader']
+initial_cogs = ['cogs.challenge', 'cogs.answer']
 
 for cog in initial_cogs:
     # noinspection PyBroadException
@@ -49,8 +49,9 @@ async def on_ready():
 
 #task loop for sending question
 @tasks.loop(minutes = 1) #test value
+
 async def question_send_task():
-    send_challenge()
+    question_send_task()
 
 @tasks.loop(minutes = 1) #task value
 async def read_csv_task():
