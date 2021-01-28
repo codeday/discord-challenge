@@ -8,7 +8,8 @@ import discord
 from discord.ext import commands, tasks
 #from raygun4py import raygunprovider
 
-from question_reader import send_challenge, read_csv
+from cogs.question_reader import read_csv
+
 logging.basicConfig(level=logging.WARNING)
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -54,5 +55,5 @@ async def question_send_task():
 @tasks.loop(minutes = 1) #task value
 async def read_csv_task():
     read_csv()
-    
+
 bot.run(BOT_TOKEN, bot=True, reconnect=True)
