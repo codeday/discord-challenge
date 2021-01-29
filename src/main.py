@@ -47,14 +47,13 @@ async def on_ready():
     await bot.change_presence(status = discord.Status.online, activity = discord.Activity(type=discord.ActivityType.watching, name = ("c!answer")))
     print('We have logged in as {0.user}'.format(bot))
 
-#task loop for sending question
-@tasks.loop(minutes = 1) #test value
-
+#task loop for sending question, need to set up date
+@tasks.loop(hours = 168) #weekly, prob better way to do
 async def question_send_task():
-    question_send()
+    num_of_questions = read_csv() #reads everyime before sending
+    #might need to sleep here
+    question_send(num_of_questions)
 
-@tasks.loop(minutes = 1) #task value
-async def read_csv_task():
-    read_csv()
+
 
 bot.run(BOT_TOKEN, bot=True, reconnect=True)
