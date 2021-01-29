@@ -8,7 +8,7 @@ import discord
 from discord.ext import commands, tasks
 #from raygun4py import raygunprovider
 
-from cogs.questions import read_csv, question_send
+from cogs.questions import pick_question
 
 logging.basicConfig(level=logging.WARNING)
 
@@ -43,16 +43,13 @@ for cog in initial_cogs:
 @bot.event
 async def on_ready():
     question_send_task.start()
-    read_csv_task.start()
     await bot.change_presence(status = discord.Status.online, activity = discord.Activity(type=discord.ActivityType.watching, name = ("c!answer")))
     print('We have logged in as {0.user}'.format(bot))
 
 #task loop for sending question, need to set up date
 @tasks.loop(hours = 168) #weekly, prob better way to do
 async def question_send_task():
-    num_of_questions = read_csv() #reads everyime before sending
-    #might need to sleep here
-    question_send(num_of_questions)
+    pick_question()
 
 
 
