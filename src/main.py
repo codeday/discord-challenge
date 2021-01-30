@@ -6,9 +6,10 @@ import os
 
 import discord
 from discord.ext import commands, tasks
+
 #from raygun4py import raygunprovider
 
-from cogs.questions import pick_question
+from cogs.questions import pick_question, send_question
 
 logging.basicConfig(level=logging.WARNING)
 
@@ -53,7 +54,7 @@ async def question_send_task():
     channel = bot.get_channel(804784999676641311)
     #await channel.send('Question sent!')
     question = pick_question()
-
+    await send_question(bot, channel, question)
 
 
 
