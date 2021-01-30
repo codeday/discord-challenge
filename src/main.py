@@ -51,7 +51,7 @@ async def on_ready():
 @tasks.loop(hours = 168) #weekly, prob better way to do
 async def question_send_task():
     channel = bot.get_channel(804784999676641311)
-    await channel.send('Question sent!')
+    #await channel.send('Question sent!')
     question = pick_question()
 
 
