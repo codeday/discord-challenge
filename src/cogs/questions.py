@@ -4,6 +4,8 @@ from discord.ext import tasks, commands
 from os import getenv
 import random
 
+
+
 def pick_question():
     print("csv reading start")
     with open('Test Sheet.csv', newline='') as csvfile:
@@ -11,18 +13,19 @@ def pick_question():
         for row in csvfile:
             if lines == 0:
                 print(f'Column names are {",".join(row)}')
-        global row_number
-        row_number = random.randrange(1, lines)
+        global rand_row_number
+        rand_row_number = random.randrange(1, lines -1)
+        print(rand_row_number)
 
     with open("Test Sheet.csv", newline='') as csvfile:
-        file = csv.reader(csvfile)
+        index = 0
+        for row in csvfile:
+            index =+ 1
+            print(lines)
+            if index == rand_row_number:
+                question = row
+        return question
 
-        question = next(row for row_number, row in enumerate(file) if row_number == lines)
-
-        return
-
-        print(question)
-    return question
 
 
 

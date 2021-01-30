@@ -46,10 +46,14 @@ async def on_ready():
     await bot.change_presence(status = discord.Status.online, activity = discord.Activity(type=discord.ActivityType.watching, name = ("c!answer")))
     print('We have logged in as {0.user}'.format(bot))
 
+
 #task loop for sending question, need to set up date
 @tasks.loop(hours = 168) #weekly, prob better way to do
 async def question_send_task():
-    pick_question()
+    channel = bot.get_channel(804784999676641311)
+    await channel.send('Question sent!')
+    question = pick_question()
+
 
 
 
