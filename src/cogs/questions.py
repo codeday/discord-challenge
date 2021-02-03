@@ -13,8 +13,9 @@ def pick_question():
         question = random.choice(questions)
         for part in reader(question):
             splitquestion.append(part)
-    return splitquestion
-    question_answer = splitquestion[4][0] #the var that I want
+        question_answers = splitquestion[4]
+    return splitquestion, question_answers
+    #the var that I want
 
 
 async def send_question(bot, channel, question):

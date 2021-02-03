@@ -48,14 +48,14 @@ async def on_ready():
     print('We have logged in as {0.user}'.format(bot))
 
 
+answers = None
 #task loop for sending question, need to set up date
 @tasks.loop(hours = 168) #weekly, prob better way to do
 async def question_send_task():
+    global answers
     channel = bot.get_channel(804784999676641311)
     #await channel.send('Question sent!')
-    question = pick_question()
+    question, answers = pick_question()
     await send_question(bot, channel, question)
-
-
 
 bot.run(BOT_TOKEN, bot=True, reconnect=True)
